@@ -1,0 +1,73 @@
+name: pflick
+
+packages:
+  - lib/business/**
+  - lib/client/**
+  - lib/dependencies/**
+  - '*'
+
+ide:
+  intellij:
+    true
+
+scripts:
+
+  lint:all:
+    run: melos run analyze --no-select && melos run format --no-select
+    description: Run all static analysis checks
+
+  analyze:
+    run: melos exec -c 1 --fail-fast -- \
+      flutter analyze --fatal-infos .
+    description: Run flutter analyzer in all packages
+
+  format:
+    run: melos exec -c 1 --fail-fast -- \
+      flutter format lib --line-length=100 --set-exit-if-changed
+    description: Run `flutter format --set-exit-if-changed .` in all packages.
+
+  test:all:
+    run: melos run test --no-select
+    description: Run tests in all packages.
+
+  test:
+    run: melos exec -c 1 --fail-fast -- \
+      flutter test --reporter expanded --coverage
+    description: Run tests in a specific package.
+    select-package:
+      dir-exists:
+        - "test/"
+
+  run:buildRunner:
+    description: Run the buildRunner to generate sources for the project
+    run: melos exec --concurrency=1 -- "flutter packages pub run build_runner build"
+    select-package:
+      file-exists:
+        - "lib/main.dart"
+
+  run:config:development:
+    run: melos exec --concurrency=1 -- "flutter run --dart-define=FLAVOR_NAME=Dev"
+    description: Run a development version of the app
+    select-package:
+      scope: "pflick"
+
+  run:config:production:
+    run: melos exec --concurrency=1 -- "flutter run --dart-define=FLAVOR_NAME=Prod"
+    description: Run a production version of the app
+    select-package:
+      scope: "pflick"
+
+  run:config:qa:
+    run: melos exec --concurrency=1 -- "flutter run --dart-define=FLAVOR_NAME=Qa"
+    description: Run a qa version of the app
+    select-package:
+      scope: "pflick"
+
+dev_dependencies:
+  flutter_lints: ^1.0.4
+  build_runner: ^2.0.6
+  mockito: ^5.0.10
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+

@@ -1,47 +1,44 @@
+import 'package:async_redux/async_redux.dart';
+import 'package:business/business.dart';
+import 'package:client/client.dart';
 import 'package:flutter/material.dart';
+import 'package:provider_for_redux/provider_for_redux.dart';
 
-void main() {
-  runApp(MyApp());
+final navigatorKey = GlobalKey<NavigatorState>();
+late Store<ImageListState> store;
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await locatorSetup();
+  Repository repository = getIt<Repository>();
+  var initialState = await ImageListState.initialState(repository: repository);
+  NavigateAction.setNavigatorKey(navigatorKey);
+  store = Store<ImageListState>(initialState: initialState);
+  runApp(MyApp(
+    repository: repository,
+  ));
 }
 
 class MyApp extends StatelessWidget {
+  final Repository repository;
+
+  const MyApp({
+    required this.repository,
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
-            ),
-          ],
-        ),
+    return AsyncReduxProvider<ImageListState>.value(
+      value: store,
+      child: MaterialApp(
+        routes: {
+          HomePage.route: (BuildContext context) => HomePageConnector(
+                repository: repository,
+              ),
+          ImagePage.route: (BuildContext context) => ImagePageConnector(),
+        },
+        navigatorKey: navigatorKey,
       ),
     );
   }
