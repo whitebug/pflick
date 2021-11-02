@@ -8,15 +8,17 @@ part of 'image_state.dart';
 
 _$_ImageState _$_$_ImageStateFromJson(Map<String, dynamic> json) {
   return _$_ImageState(
-    title: json['title'] as String,
-    media: Media.fromJson(json['media'] as Map<String, dynamic>),
+    id: json['id'] as String,
+    author: json['author'] as String,
+    url: json['download_url'] as String,
     favorite: json['favorite'] as bool?,
   );
 }
 
 Map<String, dynamic> _$_$_ImageStateToJson(_$_ImageState instance) =>
     <String, dynamic>{
-      'title': instance.title,
-      'media': instance.media,
+      'id': instance.id,
+      'author': instance.author,
+      'download_url': instance.url,
       'favorite': instance.favorite,
     };

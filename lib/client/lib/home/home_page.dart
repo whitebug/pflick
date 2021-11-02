@@ -35,7 +35,7 @@ class HomePage extends StatelessWidget {
                   itemCount: length,
                   itemBuilder: (context, index) {
                     // if there is no more images, add more
-                    if ((index + 1) >= length) {
+                    if ((index + 1) >= length && !loading) {
                       updatePage();
                     }
                     ImageState _currentImage = imageList[index];
@@ -44,11 +44,10 @@ class HomePage extends StatelessWidget {
                       child: Stack(
                         children: [
                           SizedBox(
-                            key: ValueKey(_currentImage.title),
                             height: MediaQuery.of(context).size.height / 3,
                             width: MediaQuery.of(context).size.width,
                             child: CachedNetworkImage(
-                              imageUrl: _currentImage.media.m,
+                              imageUrl: _currentImage.url,
                               placeholder: (context, url) => Center(
                                 child: CircularProgressIndicator.adaptive(),
                               ),

@@ -17,7 +17,7 @@ class ImagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(imageState.title),
+        title: Text(imageState.author),
       ),
       body: Stack(
         children: [
@@ -25,7 +25,7 @@ class ImagePage extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: CachedNetworkImage(
-              imageUrl: imageState.media.m,
+              imageUrl: imageState.url,
               placeholder: (context, url) => Center(
                 child: CircularProgressIndicator.adaptive(),
               ),

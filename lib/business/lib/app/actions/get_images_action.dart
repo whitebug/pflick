@@ -13,12 +13,15 @@ class GetImagesAction extends ReduxAction<ImageListState> {
 
   @override
   Future<ImageListState> reduce() async {
-    // get page
-    int page = state.currentPage + 1;
+    // turn page
+    dispatch(IncrementPageAction());
     // get images
-    final additionalImages = await repository.getPhotos(page: page);
+    final additionalImages = await repository.getPhotos(
+      page: state.currentPage,
+    );
     final imageList = state.imageList;
     imageList.addAll(additionalImages);
+    print('current page is ${state.currentPage}');
     return state.copyWith(imageList: imageList);
   }
 

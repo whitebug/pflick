@@ -6,11 +6,11 @@ class LikeAction extends ReduxAction<ImageListState> {
 
   LikeAction({required this.currentImage});
   @override
-  Future<ImageListState> reduce() async {
+  ImageListState reduce() {
     List<ImageState> _imageList = state.imageList;
     // get index of current image
     int index = _imageList.indexWhere(
-      (element) => element.media == currentImage.media,
+      (element) => element.id == currentImage.id,
     );
     var _currentImage = _imageList[index];
     bool _currentLike = currentImage.favorite ?? false;

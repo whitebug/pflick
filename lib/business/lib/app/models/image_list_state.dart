@@ -27,7 +27,7 @@ class ImageListState with _$ImageListState {
   static Future<ImageListState> initialState({
     required Repository repository,
   }) async {
-    List<ImageState> images = await repository.getPhotos();
+    List<ImageState> images = await repository.getPhotos(page: 0);
     return ImageListState(
       imageList: images,
       currentImage: images.first,

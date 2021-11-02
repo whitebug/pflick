@@ -21,10 +21,14 @@ class _$ImageStateTearOff {
   const _$ImageStateTearOff();
 
   _ImageState call(
-      {required String title, required Media media, required bool? favorite}) {
+      {required String id,
+      required String author,
+      @JsonKey(name: 'download_url') required String url,
+      required bool? favorite}) {
     return _ImageState(
-      title: title,
-      media: media,
+      id: id,
+      author: author,
+      url: url,
       favorite: favorite,
     );
   }
@@ -39,8 +43,10 @@ const $ImageState = _$ImageStateTearOff();
 
 /// @nodoc
 mixin _$ImageState {
-  String get title => throw _privateConstructorUsedError;
-  Media get media => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  String get author => throw _privateConstructorUsedError;
+  @JsonKey(name: 'download_url')
+  String get url => throw _privateConstructorUsedError;
   bool? get favorite => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -54,9 +60,11 @@ abstract class $ImageStateCopyWith<$Res> {
   factory $ImageStateCopyWith(
           ImageState value, $Res Function(ImageState) then) =
       _$ImageStateCopyWithImpl<$Res>;
-  $Res call({String title, Media media, bool? favorite});
-
-  $MediaCopyWith<$Res> get media;
+  $Res call(
+      {String id,
+      String author,
+      @JsonKey(name: 'download_url') String url,
+      bool? favorite});
 }
 
 /// @nodoc
@@ -69,31 +77,29 @@ class _$ImageStateCopyWithImpl<$Res> implements $ImageStateCopyWith<$Res> {
 
   @override
   $Res call({
-    Object? title = freezed,
-    Object? media = freezed,
+    Object? id = freezed,
+    Object? author = freezed,
+    Object? url = freezed,
     Object? favorite = freezed,
   }) {
     return _then(_value.copyWith(
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      media: media == freezed
-          ? _value.media
-          : media // ignore: cast_nullable_to_non_nullable
-              as Media,
+      author: author == freezed
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
       favorite: favorite == freezed
           ? _value.favorite
           : favorite // ignore: cast_nullable_to_non_nullable
               as bool?,
     ));
-  }
-
-  @override
-  $MediaCopyWith<$Res> get media {
-    return $MediaCopyWith<$Res>(_value.media, (value) {
-      return _then(_value.copyWith(media: value));
-    });
   }
 }
 
@@ -103,10 +109,11 @@ abstract class _$ImageStateCopyWith<$Res> implements $ImageStateCopyWith<$Res> {
           _ImageState value, $Res Function(_ImageState) then) =
       __$ImageStateCopyWithImpl<$Res>;
   @override
-  $Res call({String title, Media media, bool? favorite});
-
-  @override
-  $MediaCopyWith<$Res> get media;
+  $Res call(
+      {String id,
+      String author,
+      @JsonKey(name: 'download_url') String url,
+      bool? favorite});
 }
 
 /// @nodoc
@@ -121,19 +128,24 @@ class __$ImageStateCopyWithImpl<$Res> extends _$ImageStateCopyWithImpl<$Res>
 
   @override
   $Res call({
-    Object? title = freezed,
-    Object? media = freezed,
+    Object? id = freezed,
+    Object? author = freezed,
+    Object? url = freezed,
     Object? favorite = freezed,
   }) {
     return _then(_ImageState(
-      title: title == freezed
-          ? _value.title
-          : title // ignore: cast_nullable_to_non_nullable
+      id: id == freezed
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as String,
-      media: media == freezed
-          ? _value.media
-          : media // ignore: cast_nullable_to_non_nullable
-              as Media,
+      author: author == freezed
+          ? _value.author
+          : author // ignore: cast_nullable_to_non_nullable
+              as String,
+      url: url == freezed
+          ? _value.url
+          : url // ignore: cast_nullable_to_non_nullable
+              as String,
       favorite: favorite == freezed
           ? _value.favorite
           : favorite // ignore: cast_nullable_to_non_nullable
@@ -146,31 +158,39 @@ class __$ImageStateCopyWithImpl<$Res> extends _$ImageStateCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ImageState implements _ImageState {
   _$_ImageState(
-      {required this.title, required this.media, required this.favorite});
+      {required this.id,
+      required this.author,
+      @JsonKey(name: 'download_url') required this.url,
+      required this.favorite});
 
   factory _$_ImageState.fromJson(Map<String, dynamic> json) =>
       _$_$_ImageStateFromJson(json);
 
   @override
-  final String title;
+  final String id;
   @override
-  final Media media;
+  final String author;
+  @override
+  @JsonKey(name: 'download_url')
+  final String url;
   @override
   final bool? favorite;
 
   @override
   String toString() {
-    return 'ImageState(title: $title, media: $media, favorite: $favorite)';
+    return 'ImageState(id: $id, author: $author, url: $url, favorite: $favorite)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other is _ImageState &&
-            (identical(other.title, title) ||
-                const DeepCollectionEquality().equals(other.title, title)) &&
-            (identical(other.media, media) ||
-                const DeepCollectionEquality().equals(other.media, media)) &&
+            (identical(other.id, id) ||
+                const DeepCollectionEquality().equals(other.id, id)) &&
+            (identical(other.author, author) ||
+                const DeepCollectionEquality().equals(other.author, author)) &&
+            (identical(other.url, url) ||
+                const DeepCollectionEquality().equals(other.url, url)) &&
             (identical(other.favorite, favorite) ||
                 const DeepCollectionEquality()
                     .equals(other.favorite, favorite)));
@@ -179,8 +199,9 @@ class _$_ImageState implements _ImageState {
   @override
   int get hashCode =>
       runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(title) ^
-      const DeepCollectionEquality().hash(media) ^
+      const DeepCollectionEquality().hash(id) ^
+      const DeepCollectionEquality().hash(author) ^
+      const DeepCollectionEquality().hash(url) ^
       const DeepCollectionEquality().hash(favorite);
 
   @JsonKey(ignore: true)
@@ -196,17 +217,21 @@ class _$_ImageState implements _ImageState {
 
 abstract class _ImageState implements ImageState {
   factory _ImageState(
-      {required String title,
-      required Media media,
+      {required String id,
+      required String author,
+      @JsonKey(name: 'download_url') required String url,
       required bool? favorite}) = _$_ImageState;
 
   factory _ImageState.fromJson(Map<String, dynamic> json) =
       _$_ImageState.fromJson;
 
   @override
-  String get title => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
   @override
-  Media get media => throw _privateConstructorUsedError;
+  String get author => throw _privateConstructorUsedError;
+  @override
+  @JsonKey(name: 'download_url')
+  String get url => throw _privateConstructorUsedError;
   @override
   bool? get favorite => throw _privateConstructorUsedError;
   @override
