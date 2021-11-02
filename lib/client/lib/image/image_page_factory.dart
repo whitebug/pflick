@@ -9,6 +9,6 @@ class ImagePageFactory extends VmFactory<ImageListState, ImagePageConnector> {
   @override
   ImagePageViewModel fromStore() => ImagePageViewModel(
     image: state.currentImage,
-    like: () => dispatch(LikeAction(currentImage: state.currentImage)),
+    like: () => dispatch(LikeAction(likedImage: state.currentImage)),
   );
 }

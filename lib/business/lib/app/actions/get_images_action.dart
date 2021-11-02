@@ -20,8 +20,8 @@ class GetImagesAction extends ReduxAction<ImageListState> {
       page: state.currentPage,
     );
     final imageList = state.imageList;
+    // add new images to the old ones
     imageList.addAll(additionalImages);
-    print('current page is ${state.currentPage}');
     return state.copyWith(imageList: imageList);
   }
 
